@@ -6,13 +6,15 @@ target 'RxFlickr' do
   use_frameworks!
   pod 'RxSwift',    '~> 3.0'
   pod 'RxCocoa',    '~> 3.0'
-  pod 'RealmSwift'  
+  pod 'RealmSwift'
+  pod 'RxRealm'
 
   target 'RxFlickrTests' do
     inherit! :search_paths
     pod 'RxBlocking', '~> 3.0'
     pod 'RxTest',     '~> 3.0'
     pod 'RealmSwift'
+    pod 'RxRealm'
   end
 
   target 'RxFlickrUITests' do
@@ -20,6 +22,7 @@ target 'RxFlickr' do
     pod 'RxBlocking', '~> 3.0'
     pod 'RxTest',     '~> 3.0'
     pod 'RealmSwift'
+    pod 'RxRealm'
   end
 
 post_install do |installer|

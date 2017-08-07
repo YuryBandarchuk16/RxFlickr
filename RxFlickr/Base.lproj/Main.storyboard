@@ -1,14 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="RxFlickr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,11 +20,78 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="1j0-tn-pGp">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oj4-zT-PBH">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Iiv-sC-ZhZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flickr_logo" translatesAutoresizingMaskIntoConstraints="NO" id="3wO-Tu-Kks">
+                                            <rect key="frame" x="0.0" y="60" width="375" height="200"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="200" id="lap-dr-6Df"/>
+                                            </constraints>
+                                        </imageView>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter hashtag" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fKS-RL-jdW">
+                                            <rect key="frame" x="5" y="288" width="365" height="35"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="35" id="lOV-1d-CS5"/>
+                                            </constraints>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mAR-bL-Vd2">
+                                            <rect key="frame" x="5" y="343" width="365" height="40"/>
+                                            <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="25"/>
+                                            <state key="normal" title="See photos!">
+                                                <color key="titleColor" red="0.13936398724961119" green="1" blue="0.035190136707042519" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="fKS-RL-jdW" firstAttribute="leading" secondItem="Iiv-sC-ZhZ" secondAttribute="leading" constant="5" id="2Y9-Qz-mD7"/>
+                                        <constraint firstAttribute="trailing" secondItem="mAR-bL-Vd2" secondAttribute="trailing" constant="5" id="9xU-D8-RSH"/>
+                                        <constraint firstItem="mAR-bL-Vd2" firstAttribute="leading" secondItem="Iiv-sC-ZhZ" secondAttribute="leading" constant="5" id="ET0-5b-iGA"/>
+                                        <constraint firstItem="mAR-bL-Vd2" firstAttribute="top" secondItem="fKS-RL-jdW" secondAttribute="bottom" constant="20" id="F2y-I4-nKk"/>
+                                        <constraint firstItem="fKS-RL-jdW" firstAttribute="top" secondItem="3wO-Tu-Kks" secondAttribute="bottom" constant="28" id="V3I-0c-uha"/>
+                                        <constraint firstAttribute="trailing" secondItem="fKS-RL-jdW" secondAttribute="trailing" constant="5" id="Y5t-JU-qe5"/>
+                                        <constraint firstItem="3wO-Tu-Kks" firstAttribute="top" secondItem="Iiv-sC-ZhZ" secondAttribute="top" constant="60" id="e8z-Cs-aQI"/>
+                                        <constraint firstAttribute="trailing" secondItem="3wO-Tu-Kks" secondAttribute="trailing" id="spJ-pb-cZU"/>
+                                        <constraint firstItem="3wO-Tu-Kks" firstAttribute="leading" secondItem="Iiv-sC-ZhZ" secondAttribute="leading" id="y69-7F-zts"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="oj4-zT-PBH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="1qE-N5-8zG"/>
+                            <constraint firstItem="1j0-tn-pGp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="22D-Cz-N70"/>
+                            <constraint firstItem="oj4-zT-PBH" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="2KO-H3-gpW"/>
+                            <constraint firstItem="1j0-tn-pGp" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="2Yg-Ix-7df"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="1j0-tn-pGp" secondAttribute="bottom" id="LhB-Zx-Uhg"/>
+                            <constraint firstAttribute="trailing" secondItem="1j0-tn-pGp" secondAttribute="trailing" id="Ntj-hO-9J3"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="oj4-zT-PBH" secondAttribute="bottom" id="VDf-BI-Pzd"/>
+                            <constraint firstAttribute="trailing" secondItem="oj4-zT-PBH" secondAttribute="trailing" id="p2Y-yl-t7F"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="hashtagTextField" destination="fKS-RL-jdW" id="NeA-6q-nQ7"/>
+                        <outlet property="seePhotosButton" destination="mAR-bL-Vd2" id="657-Tj-P7R"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="32.799999999999997" y="66.11694152923539"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="background" width="368" height="229"/>
+        <image name="flickr_logo" width="640" height="320"/>
+    </resources>
 </document>
