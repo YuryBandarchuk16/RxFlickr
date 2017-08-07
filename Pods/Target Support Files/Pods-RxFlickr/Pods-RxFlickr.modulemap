@@ -1,0 +1,6 @@
+framework module Pods_RxFlickr {
+  umbrella header "Pods-RxFlickr-umbrella.h"
+
+  export *
+  module * { export * }
+}
