@@ -9,12 +9,14 @@
 import UIKit
 import RxCocoa
 import RxSwift
-import RxRealm
-import RealmSwift
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
-    let disposeBag = DisposeBag()
+    private enum Segues: String {
+        case searchPhotoByTag
+    }
+    
+    private let disposeBag = DisposeBag()
 
     @IBOutlet weak var hashtagTextField: UITextField!
     @IBOutlet weak var seePhotosButton: UIButton!
@@ -30,12 +32,25 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     self.present(alert, animated: true, completion: nil)
                     return
                 }
-                let hashTag = self.hashtagTextField.text!
-                print(hashTag)
-                // pass hashtag to the next view controller and start loading data
+                
             }).addDisposableTo(disposeBag)
     }
     
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == Segues.searchPhotoByTag.rawValue {
+            guard let text = self.hashtagTextField.text
+                else { return false; }
+            return !text.isEmpty
+        }
+        return false
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Segues.searchPhotoByTag.rawValue {
+            let destinationViewController = segue.destination as! PhotoListViewController
+            destinationViewController.hashTag = hashtagTextField.text
+        }
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -44,10 +59,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
 
 

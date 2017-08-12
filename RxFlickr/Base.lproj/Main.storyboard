@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iXb-z2-HyD">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Search-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="RxFlickr" customModuleProvider="target" sceneMemberID="viewController">
@@ -46,11 +46,14 @@
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mAR-bL-Vd2">
-                                            <rect key="frame" x="5" y="343" width="365" height="40"/>
-                                            <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="25"/>
+                                            <rect key="frame" x="5" y="343" width="365" height="45"/>
+                                            <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="28"/>
                                             <state key="normal" title="See photos!">
-                                                <color key="titleColor" red="0.13936398724961119" green="1" blue="0.035190136707042519" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="titleColor" red="1" green="0.71450182583016431" blue="0.011802602345523439" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
+                                            <connections>
+                                                <segue destination="21q-8F-eSq" kind="show" identifier="searchPhotoByTag" id="xv2-B8-rL2"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -80,6 +83,7 @@
                             <constraint firstAttribute="trailing" secondItem="oj4-zT-PBH" secondAttribute="trailing" id="p2Y-yl-t7F"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Search" id="i4A-tH-VgC"/>
                     <connections>
                         <outlet property="hashtagTextField" destination="fKS-RL-jdW" id="NeA-6q-nQ7"/>
                         <outlet property="seePhotosButton" destination="mAR-bL-Vd2" id="657-Tj-P7R"/>
@@ -88,6 +92,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="32.799999999999997" y="66.11694152923539"/>
+        </scene>
+        <!--Photo List View Controller-->
+        <scene sceneID="XfQ-le-ske">
+            <objects>
+                <tableViewController id="21q-8F-eSq" customClass="PhotoListViewController" customModule="RxFlickr" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="e7e-Av-EcI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="21q-8F-eSq" id="uPa-vw-44r"/>
+                            <outlet property="delegate" destination="21q-8F-eSq" id="kGV-Vz-15S"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eOR-To-oPL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="888.79999999999995" y="64.31784107946028"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="CqS-xT-FIZ">
+            <objects>
+                <navigationController id="iXb-z2-HyD" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RIu-df-ymD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="M2l-en-mMN"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GDG-kf-Qr1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-831" y="66"/>
         </scene>
     </scenes>
     <resources>
