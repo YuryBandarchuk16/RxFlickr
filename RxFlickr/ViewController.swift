@@ -15,6 +15,7 @@ import RealmSwift
 class ViewController: UIViewController, UITextFieldDelegate {
     
     private var realm: Realm!
+    var notificationToken: NotificationToken!
     
     private enum Segues: String {
         case searchPhotoByTag
@@ -25,11 +26,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var hashtagTextField: UITextField!
     @IBOutlet weak var seePhotosButton: UIButton!
     @IBOutlet weak var clearRealmButton: UIButton!
+    @IBOutlet weak var allPhotosButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         realm = try? Realm()
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
         self.hashtagTextField.delegate = self
+        
         seePhotosButton.rx.tap
             .subscribe(onNext: {
                 if self.hashtagTextField.text == nil || self.hashtagTextField.text?.characters.count == 0 {
@@ -40,12 +44,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 }
                 
             }).addDisposableTo(disposeBag)
+        
         clearRealmButton.rx.tap
             .subscribe(onNext: {
                 try? self.realm.write {
                     self.realm.deleteAll()
                 }
             }).addDisposableTo(disposeBag)
+        
+        allPhotosButton.rx.tap
+            .subscribe(onNext: {
+                self.performSegue(withIdentifier: Segues.searchPhotoByTag.rawValue, sender: self.allPhotosButton)
+            }).addDisposableTo(disposeBag)
+        
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -60,7 +71,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Segues.searchPhotoByTag.rawValue {
             let destinationViewController = segue.destination as! PhotoListViewController
-            destinationViewController.hashTag = hashtagTextField.text
+            destinationViewController.realm = realm
+            var loadAll: Bool = false
+            if let whoSent = sender as? UIButton {
+                if whoSent === allPhotosButton {
+                    loadAll = true
+                }
+            }
+            destinationViewController.loadAll = loadAll
+            if (!loadAll) {
+                destinationViewController.hashTag = hashtagTextField.text
+            }
         }
     }
     

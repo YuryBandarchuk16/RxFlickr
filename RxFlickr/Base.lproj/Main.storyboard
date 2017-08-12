@@ -65,6 +65,13 @@
                                                 <color key="titleColor" red="1" green="0.094946857262924067" blue="0.010048579192786122" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r8b-Qe-bb8">
+                                            <rect key="frame" x="5" y="418" width="365" height="41"/>
+                                            <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="25"/>
+                                            <state key="normal" title="All photos in DataBase">
+                                                <color key="titleColor" red="1" green="0.71450182579999999" blue="0.01180260235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="fKS-RL-jdW" firstAttribute="leading" secondItem="Iiv-sC-ZhZ" secondAttribute="leading" constant="5" id="2Y9-Qz-mD7"/>
@@ -74,8 +81,11 @@
                                         <constraint firstAttribute="trailing" secondItem="hd4-iQ-6Ne" secondAttribute="trailing" constant="5" id="Rpm-zb-atH"/>
                                         <constraint firstItem="fKS-RL-jdW" firstAttribute="top" secondItem="3wO-Tu-Kks" secondAttribute="bottom" constant="28" id="V3I-0c-uha"/>
                                         <constraint firstAttribute="trailing" secondItem="fKS-RL-jdW" secondAttribute="trailing" constant="5" id="Y5t-JU-qe5"/>
+                                        <constraint firstAttribute="trailing" secondItem="r8b-Qe-bb8" secondAttribute="trailing" constant="5" id="aM2-A6-rts"/>
+                                        <constraint firstItem="r8b-Qe-bb8" firstAttribute="top" secondItem="mAR-bL-Vd2" secondAttribute="bottom" constant="30" id="c8R-4a-gY5"/>
                                         <constraint firstItem="3wO-Tu-Kks" firstAttribute="top" secondItem="Iiv-sC-ZhZ" secondAttribute="top" constant="60" id="e8z-Cs-aQI"/>
                                         <constraint firstItem="hd4-iQ-6Ne" firstAttribute="leading" secondItem="Iiv-sC-ZhZ" secondAttribute="leading" constant="5" id="hli-bP-Wi9"/>
+                                        <constraint firstItem="r8b-Qe-bb8" firstAttribute="leading" secondItem="Iiv-sC-ZhZ" secondAttribute="leading" constant="5" id="mvq-LX-Src"/>
                                         <constraint firstAttribute="bottom" secondItem="hd4-iQ-6Ne" secondAttribute="bottom" constant="20" id="s8z-0O-a6f"/>
                                         <constraint firstAttribute="trailing" secondItem="3wO-Tu-Kks" secondAttribute="trailing" id="spJ-pb-cZU"/>
                                         <constraint firstItem="3wO-Tu-Kks" firstAttribute="leading" secondItem="Iiv-sC-ZhZ" secondAttribute="leading" id="y69-7F-zts"/>
@@ -98,6 +108,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Search" id="i4A-tH-VgC"/>
                     <connections>
+                        <outlet property="allPhotosButton" destination="r8b-Qe-bb8" id="HWO-3J-SJd"/>
                         <outlet property="clearRealmButton" destination="hd4-iQ-6Ne" id="y06-cG-fxn"/>
                         <outlet property="hashtagTextField" destination="fKS-RL-jdW" id="NeA-6q-nQ7"/>
                         <outlet property="seePhotosButton" destination="mAR-bL-Vd2" id="657-Tj-P7R"/>

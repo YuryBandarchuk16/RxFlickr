@@ -8,6 +8,7 @@
 
 import RxSwift
 import RxCocoa
+import RealmSwift
 import Foundation
 
 struct DataLoader {
@@ -16,7 +17,7 @@ struct DataLoader {
     let disposeBag = DisposeBag()
     let maxAttemptCount = 5
     
-    func getData(hashtag: String) -> Observable<[Photo]> {
+    func getData(hashtag: String, realm: Realm) -> Observable<[Photo]> {
         guard let url: URL = URL(string: flickrAPI.getPhotosByHashTagURL(hashtag: hashtag))
             else { return Observable.just([]) }
         let request: URLRequest = URLRequest(url: url)
@@ -44,7 +45,12 @@ struct DataLoader {
                                     if title.isEmpty {
                                         title = "No title"
                                     }
-                                    resultData.append(Photo(value: ["imageData": imageData as Any?, "title": title, "author": owner, "descriptionT": ""]))
+                                    DispatchQueue.main.async {
+                                        resultData.append(Photo(value: ["imageData": imageData as Any?, "title": title, "author": owner, "descriptionT": ""]))
+                                        try? realm.write {
+                                            realm.add(resultData.last!)
+                                        }
+                                    }
                                 }
                             }
                         }

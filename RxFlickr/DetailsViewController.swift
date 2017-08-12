@@ -13,6 +13,7 @@ import RealmSwift
 
 class DetailsViewController: UIViewController {
     
+    public var realm: Realm!
     private let disposeBag: DisposeBag = DisposeBag()
 
     @IBOutlet weak var photoImage: UIImageView!
@@ -25,9 +26,13 @@ class DetailsViewController: UIViewController {
         super.viewDidLoad()
         self.navigationItem.title = "Photo details"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: nil)
+        
         self.navigationItem.rightBarButtonItem?.rx.tap.subscribe(onNext: {
-            self.photo.value.descriptionT.append("!")
+            try? self.realm.write {
+                self.photo.value.descriptionT.append("!")
+            }
         }).addDisposableTo(disposeBag)
+        
         photoImage.layer.borderWidth = 1.5
         photoImage.layer.borderColor = UIColor.white.cgColor
         setupPhotoObserver()
