@@ -20,24 +20,43 @@ class PhotoListViewController: UITableViewController {
     private let dataLoader: DataLoader = DataLoader()
     private let photos: Variable<[Photo]> = Variable([])
     
+    // could be made as observable, but it is not necessary, because it received value only once - 
+    // from previous view controller before segue
     public var hashTag: String! {
         didSet {
-            var newPhotos: [Photo] = []
-            DispatchQueue.global().async {
-                self.dataLoader.getData(hashtag: self.hashTag).subscribe(onNext: {
-                    newPhotos = $0
-                }).disposed(by: self.disposeBag)
-            }
-            photos.value = newPhotos
+            self.dataLoader.getData(hashtag: self.hashTag).subscribe(onNext: {
+                self.photos.value = $0
+            }).disposed(by: self.disposeBag)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Photos"
+        setupBackground()
         setupPhotosObserver()
         setupCellConfiguration()
-        photos.value.append(Photo(imageData: nil, title: "hello", author: "Vika", description: "!"))
+        photos.value.append(Photo(value: ["imageData": nil, "title": "Test Image", "author": "Nobody", "descriptionT": ""]))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.reloadData()
+    }
+    
+    private func setupBackground() {
+        let backgroundView: UIView = UIView()
+        backgroundView.frame = self.tableView.bounds
+        backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        let backgroundImageView: UIImageView = UIImageView()
+        backgroundImageView.frame = backgroundView.bounds
+        backgroundImageView.image = UIImage(named: "background")
+        backgroundImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        backgroundView.addSubview(backgroundImageView)
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = backgroundView.bounds
+        backgroundView.addSubview(blurEffectView)
+        self.tableView.backgroundView = backgroundView
     }
     
     private func setupPhotosObserver() {
@@ -55,8 +74,15 @@ class PhotoListViewController: UITableViewController {
             let indexPath = IndexPath(row: row, section: 0)
             let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIndetifier, for: indexPath) as! PhotoCell
             cell.photo = element
+            cell.layer.backgroundColor = UIColor.clear.cgColor
             return cell
         }.disposed(by: disposeBag)
+        self.tableView.rx.itemSelected.subscribe(onNext: { [weak self] indexPath in
+            if (!(self != nil)) { return }
+            let nextViewController = DetailsViewController(nibName: "DetailsViewController", bundle: bundle)
+            nextViewController.photo = Variable(self!.photos.value[indexPath.row])
+            self!.navigationController?.pushViewController(nextViewController, animated: true)
+        }).addDisposableTo(disposeBag)
     }
 
 }

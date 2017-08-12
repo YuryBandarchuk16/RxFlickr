@@ -7,18 +7,12 @@
 //
 
 import Foundation
-import Realm
+import RealmSwift
+import RxSwift
 
-final class Photo {
+final class Photo: Object {
     dynamic var imageData: Data? = nil
     dynamic var title: String = ""
     dynamic var author: String = ""
-    dynamic var description: String = ""
-    
-    init(imageData: Data?, title: String, author: String, description: String) {
-        self.imageData = imageData
-        self.title = title
-        self.author = author
-        self.description = description
-    }
+    dynamic var descriptionT: String = ""
 }

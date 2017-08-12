@@ -21,19 +21,19 @@ struct DataLoader {
             else { return Observable.just([]) }
         let request: URLRequest = URLRequest(url: url)
         return URLSession.shared.rx.json(request: request).retry(maxAttemptCount)
-            .map { jsonResult in
+            .map{ jsonResult in
                 var resultData = [Photo]()
                 if let allJson = jsonResult as? [String: AnyObject] {
                     if let photos = allJson["photos"] as? [String: AnyObject] {
                         if let photosArray = photos["photo"] as? [AnyObject] {
                             photosArray.forEach {
-                                if let currentPhoto = $0 as? [String: String] {
-                                    guard   let id = currentPhoto["id"],
-                                            let owner = currentPhoto["owner"],
-                                            let secret = currentPhoto["secret"],
-                                            let server = currentPhoto["server"],
-                                            let farm = currentPhoto["farm"],
-                                            let title = currentPhoto["title"]
+                                if let currentPhoto = $0 as? [String: AnyObject] {
+                                    guard   let id = currentPhoto["id"] as? String,
+                                            let owner = currentPhoto["owner"] as? String,
+                                            let secret = currentPhoto["secret"] as? String,
+                                            let server = currentPhoto["server"] as? String,
+                                            let farm = currentPhoto["farm"] as? Int,
+                                            var title = currentPhoto["title"] as? String
                                         else {
                                             return
                                     }
@@ -41,7 +41,10 @@ struct DataLoader {
                                     if let imageURL = URL(string: self.flickrAPI.buildImageURL(farm: farm, server: server, id: id, secret: secret)) {
                                         imageData = try? Data(contentsOf: imageURL)
                                     }
-                                    resultData.append(Photo(imageData: imageData, title: title, author: owner, description: ""))
+                                    if title.isEmpty {
+                                        title = "No title"
+                                    }
+                                    resultData.append(Photo(value: ["imageData": imageData as Any?, "title": title, "author": owner, "descriptionT": ""]))
                                 }
                             }
                         }

@@ -16,8 +16,8 @@ struct FlickrAPI {
         return "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(API_KEY)&tags=\(hashtag)&format=json&nojsoncallback=1"
     }
     
-    func buildImageURL(farm: String, server: String, id: String, secret: String) -> String {
-        return "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret).jpg"
+    func buildImageURL(farm: Int, server: String, id: String, secret: String) -> String {
+        return "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret)_n.jpg"
     }
     
 }

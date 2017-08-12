@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class PhotoCell: UITableViewCell {
 
@@ -22,9 +24,11 @@ class PhotoCell: UITableViewCell {
             } else {
                 photoImage.image = UIImage(named: "no_photo")
             }
+            photoImage.layer.borderWidth = 1.5
+            photoImage.layer.borderColor = UIColor.white.cgColor
             titleLabel.text = "Title: \(photo.title)"
             authorLabel.text = "Owner: \(photo.author)"
-            descriptionLabel.text = "Description: \(photo.description)"
+            descriptionLabel.text = "Description: \(photo.descriptionT)"
         }
     }
 
