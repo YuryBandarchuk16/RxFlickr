@@ -55,15 +55,28 @@
                                                 <segue destination="21q-8F-eSq" kind="show" identifier="searchPhotoByTag" id="xv2-B8-rL2"/>
                                             </connections>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hd4-iQ-6Ne">
+                                            <rect key="frame" x="5" y="602" width="365" height="45"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="45" id="A5F-TK-HOk"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="28"/>
+                                            <state key="normal" title="Clear Realm">
+                                                <color key="titleColor" red="1" green="0.094946857262924067" blue="0.010048579192786122" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="fKS-RL-jdW" firstAttribute="leading" secondItem="Iiv-sC-ZhZ" secondAttribute="leading" constant="5" id="2Y9-Qz-mD7"/>
                                         <constraint firstAttribute="trailing" secondItem="mAR-bL-Vd2" secondAttribute="trailing" constant="5" id="9xU-D8-RSH"/>
                                         <constraint firstItem="mAR-bL-Vd2" firstAttribute="leading" secondItem="Iiv-sC-ZhZ" secondAttribute="leading" constant="5" id="ET0-5b-iGA"/>
                                         <constraint firstItem="mAR-bL-Vd2" firstAttribute="top" secondItem="fKS-RL-jdW" secondAttribute="bottom" constant="20" id="F2y-I4-nKk"/>
+                                        <constraint firstAttribute="trailing" secondItem="hd4-iQ-6Ne" secondAttribute="trailing" constant="5" id="Rpm-zb-atH"/>
                                         <constraint firstItem="fKS-RL-jdW" firstAttribute="top" secondItem="3wO-Tu-Kks" secondAttribute="bottom" constant="28" id="V3I-0c-uha"/>
                                         <constraint firstAttribute="trailing" secondItem="fKS-RL-jdW" secondAttribute="trailing" constant="5" id="Y5t-JU-qe5"/>
                                         <constraint firstItem="3wO-Tu-Kks" firstAttribute="top" secondItem="Iiv-sC-ZhZ" secondAttribute="top" constant="60" id="e8z-Cs-aQI"/>
+                                        <constraint firstItem="hd4-iQ-6Ne" firstAttribute="leading" secondItem="Iiv-sC-ZhZ" secondAttribute="leading" constant="5" id="hli-bP-Wi9"/>
+                                        <constraint firstAttribute="bottom" secondItem="hd4-iQ-6Ne" secondAttribute="bottom" constant="20" id="s8z-0O-a6f"/>
                                         <constraint firstAttribute="trailing" secondItem="3wO-Tu-Kks" secondAttribute="trailing" id="spJ-pb-cZU"/>
                                         <constraint firstItem="3wO-Tu-Kks" firstAttribute="leading" secondItem="Iiv-sC-ZhZ" secondAttribute="leading" id="y69-7F-zts"/>
                                     </constraints>
@@ -85,6 +98,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Search" id="i4A-tH-VgC"/>
                     <connections>
+                        <outlet property="clearRealmButton" destination="hd4-iQ-6Ne" id="y06-cG-fxn"/>
                         <outlet property="hashtagTextField" destination="fKS-RL-jdW" id="NeA-6q-nQ7"/>
                         <outlet property="seePhotosButton" destination="mAR-bL-Vd2" id="657-Tj-P7R"/>
                     </connections>

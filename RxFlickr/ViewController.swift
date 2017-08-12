@@ -9,8 +9,12 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import RxRealm
+import RealmSwift
 
 class ViewController: UIViewController, UITextFieldDelegate {
+    
+    private var realm: Realm!
     
     private enum Segues: String {
         case searchPhotoByTag
@@ -20,9 +24,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var hashtagTextField: UITextField!
     @IBOutlet weak var seePhotosButton: UIButton!
+    @IBOutlet weak var clearRealmButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        realm = try? Realm()
         self.hashtagTextField.delegate = self
         seePhotosButton.rx.tap
             .subscribe(onNext: {
@@ -33,6 +39,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     return
                 }
                 
+            }).addDisposableTo(disposeBag)
+        clearRealmButton.rx.tap
+            .subscribe(onNext: {
+                try? self.realm.write {
+                    self.realm.deleteAll()
+                }
             }).addDisposableTo(disposeBag)
     }
     
