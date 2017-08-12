@@ -46,7 +46,7 @@ struct DataLoader {
                                         title = "No title"
                                     }
                                     DispatchQueue.main.async {
-                                        resultData.append(Photo(value: ["imageData": imageData as Any?, "title": title, "author": owner, "descriptionT": ""]))
+                                        resultData.append(Photo(value: ["imageData": imageData as Any?, "title": title, "author": owner, "descriptionT": "", "hashtag": hashtag]))
                                         try? realm.write {
                                             realm.add(resultData.last!)
                                         }

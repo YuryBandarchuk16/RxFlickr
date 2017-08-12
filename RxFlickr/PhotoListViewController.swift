@@ -43,9 +43,13 @@ class PhotoListViewController: UITableViewController {
         setupBackground()
         setupPhotosObserver()
         setupCellConfiguration()
+        changes = 0
         notificationToken = realm.addNotificationBlock { notification, realm in
-            if self.changes <= 10 || self.changes % 10 == 0 {
-                self.photos.value = Array(realm.objects(Photo.self))
+            if self.loadAll { return }
+            if self.changes <= 30 || self.changes % 10 == 0 {
+                self.photos.value = Array(realm.objects(Photo.self).filter({ photo in
+                    return photo.hashtag == self.hashTag
+                }))
             }
             self.changes += 1
         }
@@ -53,7 +57,7 @@ class PhotoListViewController: UITableViewController {
             photos.value = Array(realm.objects(Photo.self))
         }
         if (photos.value.count == 0 || loadAll == false) {
-            photos.value.append(Photo(value: ["imageData": nil, "title": "Test Image", "author": "Nobody", "descriptionT": ""]))
+            photos.value.append(Photo(value: ["imageData": nil, "title": "Test Image", "author": "Nobody", "descriptionT": "", "hashtag": "no_hashtag"]))
         }
     }
     

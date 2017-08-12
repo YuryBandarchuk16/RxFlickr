@@ -15,4 +15,5 @@ final class Photo: Object {
     dynamic var title: String = ""
     dynamic var author: String = ""
     dynamic var descriptionT: String = ""
+    dynamic var hashtag: String = ""
 }

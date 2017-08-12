@@ -31,6 +31,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         realm = try? Realm()
+        if realm == nil {
+            try? FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
+            realm = try? Realm()
+        }
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         self.hashtagTextField.delegate = self
         
