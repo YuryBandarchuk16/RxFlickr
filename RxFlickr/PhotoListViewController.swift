@@ -24,7 +24,10 @@ class PhotoListViewController: UITableViewController {
     private let dataLoader: DataLoader = DataLoader()
     private let photos: Variable<[Photo]> = Variable([])
     
-    // could be made as observable, but it is not necessary, because it received value only once - 
+    private var notificationToken: NotificationToken!
+    private var changes: Int = 0
+    
+    // could be made as observable, but it is not necessary, because it receives value only once -
     // from previous view controller before segue
     public var hashTag: String! {
         didSet {
@@ -40,6 +43,12 @@ class PhotoListViewController: UITableViewController {
         setupBackground()
         setupPhotosObserver()
         setupCellConfiguration()
+        notificationToken = realm.addNotificationBlock { notification, realm in
+            if self.changes <= 10 || self.changes % 10 == 0 {
+                self.photos.value = Array(realm.objects(Photo.self))
+            }
+            self.changes += 1
+        }
         if (loadAll) {
             photos.value = Array(realm.objects(Photo.self))
         }
@@ -75,14 +84,8 @@ class PhotoListViewController: UITableViewController {
     private func setupPhotosObserver() {
         self.photos.asObservable()
             .subscribe(onNext: { photos in
-                /*for photo in photos {
-                    try? self.realm.write {
-                        self.realm.add(photo)
-                    }
-                }*/
                 self.tableView.reloadData()
             }).addDisposableTo(disposeBag)
-        //self.photos.asObservable().subscribe(realm.rx.add()).addDisposableTo(disposeBag)
     }
     
     private func setupCellConfiguration() {
@@ -107,6 +110,12 @@ class PhotoListViewController: UITableViewController {
             nextViewController.realm = self!.realm
             self!.navigationController?.pushViewController(nextViewController, animated: true)
         }).addDisposableTo(disposeBag)
+    }
+    
+    deinit {
+        if notificationToken != nil {
+            notificationToken.stop()
+        }
     }
 
 }

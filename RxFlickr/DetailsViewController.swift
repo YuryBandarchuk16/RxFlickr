@@ -42,6 +42,7 @@ class DetailsViewController: UIViewController {
         photo.value.rx.observe(String.self, "descriptionT").subscribe(onNext: { _ in
             self.descriptionLabel.text = "Description: \(self.photo.value.descriptionT)"
         }, onError: nil, onCompleted: nil, onDisposed: nil).addDisposableTo(disposeBag)
+        
         photo.asObservable().subscribe(onNext: { photo in
             if let photoData = photo.imageData {
                 self.photoImage.image = UIImage(data: photoData)
