@@ -2,4 +2,5 @@
 
 For more details, please, see demonstration GIF below.
   
-![](https://github.com/YuryBandarchuk16/RxFlickr/blob/master/demo.gif)
+<img src="https://github.com/YuryBandarchuk16/RxFlickr/blob/master/demo.gif" height="470" width="300">
+
